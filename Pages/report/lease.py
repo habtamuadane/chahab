@@ -41,25 +41,26 @@ class Lease:
         st.title("🌍 Industry Lease Report ")
 
         st.subheader("➕ Add New Industry Lease Record")
-        with st.form("Yeteshegageru_form", clear_on_submit=True):
-            export_item = st.text_input("Exported Item Name")
-            industry = st.text_input("Exporting Industry Name")
-            destination_country = st.text_input("Destination Country")
-            quantity = st.number_input("Quantity (in tons)", min_value=0.0, step=0.1)
-            value_usd = st.number_input("Export Value (in USD)", min_value=0.0, step=100.0)
-            export_date = st.date_input("Date of Export", value=date.today())
-            submit = st.form_submit_button("Save Export Record")
+        with st.expander("➕ Add New Export Record", expanded=True):
+            with st.form("export_form", clear_on_submit=True):
+                export_item = st.text_input("Exported Item Name")
+                industry = st.text_input("Exporting Industry Name")
+                destination_country = st.text_input("Destination Country")
+                quantity = st.number_input("Quantity (in tons)", min_value=0.0, step=0.1)
+                value_usd = st.number_input("Export Value (in USD)", min_value=0.0, step=100.0)
+                export_date = st.date_input("Date of Export", value=date.today())
+                submit = st.form_submit_button("Save Export Record")
 
-        if submit:
-            self.add_record(
-                export_item,
-                industry,
-                destination_country,
-                quantity,
-                value_usd,
-                export_date.strftime("%Y-%m-%d")
-            )
-            st.success(f"✅ Export record for {export_item} saved successfully!")
+            if submit:
+                self.add_record(
+                    export_item,
+                    industry,
+                    destination_country,
+                    quantity,
+                    value_usd,
+                    export_date.strftime("%Y-%m-%d")
+                )
+                st.success(f"✅ Export record for {export_item} saved successfully!")
 
         st.divider()
         st.subheader("📦 Industry Financial Audit Records Summary")
